@@ -29,7 +29,6 @@ function P.cat(i, ...) return fpipe(i, "cat", ...) end
 function P.cp(i, ...) return fpipe(i, "cp", ...) end
 function P.mknod(i, ...) return fpipe(i, "mknod", ...) end
 function P.chown(i, ...) return fpipe(i, "chown", ...) end
-function P.bin(i, ...) return fpipe(i, "bin", ...) end
 function P.env(i, ...) return fpipe(i, "env", ...) end
 function P.sha1sum(i, ...) return fpipe(i, "sha1sum", ...) end
 function P.ptx(i, ...) return fpipe(i, "ptx", ...) end
