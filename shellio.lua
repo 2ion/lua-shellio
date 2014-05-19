@@ -28,4 +28,13 @@ function P.tail(i, narg, ...)
   end
 end
 
+function P.column(i, ...)
+  return fpipe(i, "column", ...)
+end
+
+function P.cat(i, ...)
+  return fpipe(i, "cat", ...)
+end
+
+setmetatable(P, { __call = function (t, ...) return fpipe(...) end })
 return P
