@@ -1,0 +1,6 @@
+### lua-shellio
+
+Using lua-filterpipe, this package provides convenience wrapper
+functions around the classic binutils and/or coreutils like cat, tac,
+head, tail etc so that they can be used with ease as filters from Lua
+programs.
