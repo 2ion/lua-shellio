@@ -3,7 +3,6 @@
 local fpipe = require 'filterpipe'
 local P = {}
 
-function P.bin(i, ...) return fpipe(i, "bin", ...) end
 function P.echo(i, ...) return fpipe(i, "echo", ...) end
 function P.dir(i, ...) return fpipe(i, "dir", ...) end
 function P.rmdir(i, ...) return fpipe(i, "rmdir", ...) end
@@ -103,6 +102,7 @@ function P.users(i, ...) return fpipe(i, "users", ...) end
 function P.paste(i, ...) return fpipe(i, "paste", ...) end
 function P.du(i, ...) return fpipe(i, "du", ...) end
 function P.touch(i, ...) return fpipe(i, "touch", ...) end
+function P.sed(i, ...) return fpipe(i, "sed", ...) end
 
 setmetatable(P, { __call = function (t, ...) return fpipe(...) end })
 return P
