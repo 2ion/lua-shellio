@@ -107,6 +107,10 @@ function P.sed(i, ...) return fpipe.pipe(i, "sed", ...) end
 
 -- useful helpers
 
+--- Takes a $filepath and one of the above functions as well as an
+-- ellipsis as arguments. Reads all data from the file and uses it as
+-- the input to the shellio wrapper. The ellipsis may specify extra
+-- arguments to the command. See examples.lua for usage examples.
 function P.h.fromFile(filepath, f, ...)
   local h = io.open(filepath, "r")
   if not h then return nil end
