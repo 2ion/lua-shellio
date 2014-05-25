@@ -1,7 +1,9 @@
 #!/usr/bin/env lua5.2
 
 local fpipe = require 'filterpipe'
-local P = {}
+local P = { h = {} }
+
+-- coreutils wrappers
 
 function P.echo(i, ...) return fpipe.pipe(i, "echo", ...) end
 function P.dir(i, ...) return fpipe.pipe(i, "dir", ...) end
@@ -102,6 +104,16 @@ function P.paste(i, ...) return fpipe.pipe(i, "paste", ...) end
 function P.du(i, ...) return fpipe.pipe(i, "du", ...) end
 function P.touch(i, ...) return fpipe.pipe(i, "touch", ...) end
 function P.sed(i, ...) return fpipe.pipe(i, "sed", ...) end
+
+-- useful helpers
+
+function P.h.fromFile(filepath, f, ...)
+  local h = io.open(filepath, "r")
+  if not h then return nil end
+  local d = h:read("*a")
+  h:close()
+  return f(d, ...)
+end
 
 setmetatable(P, { __call = function (t, ...) return fpipe.pipe(...) end })
 return P
