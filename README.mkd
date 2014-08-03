@@ -35,6 +35,6 @@ local Q = sh.Pipe.new(true)
 ```
 and after a pipe invocation,
 ```lua
-P.stack
+Q.stack
 ```
 will hold an array of all intermediate also the final result.
