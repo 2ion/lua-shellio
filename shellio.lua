@@ -126,7 +126,22 @@ function P.Pipe.new(...)
     __index = P.Pipe,
     __call = function (o, c, ...)
       if not c then return o.data end
+      if o.stack and type(o.stack) ~= "table" then
+        o.stack = {}
+        o.use_stack = true
+        setmetatable(o.stack, {
+          __call = function (o)
+            while #o > 0 do
+              table.remove(o, 1)
+            end
+            return o
+          end
+        })
+      end
       o.data = fpipe.pipe(o.data or "", c, ...)
+      if o.use_stack then
+        table.insert(o.stack, o.data)
+      end
       return o
     end
   })
