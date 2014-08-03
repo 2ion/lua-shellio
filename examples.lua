@@ -19,6 +19,6 @@ local P = shio.Pipe.new(true)
   ("cut", "-d:", "-f1")
 
 print(P.data)
-for k,v in ipairs(P.stack) do
+for k,v in P.stack(true) do
   print(v)
 end

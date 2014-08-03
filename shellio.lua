@@ -129,7 +129,10 @@ function P.Pipe.new(use_stack)
       if o.use_stack and not o.stack then
         o.stack = {}
         setmetatable(o.stack, {
-          __call = function (o)
+          __call = function (o, v)
+            if v then
+              return ipairs(o)
+            end
             while #o > 0 do
               table.remove(o, 1)
             end

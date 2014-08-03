@@ -37,4 +37,17 @@ and after a pipe invocation,
 ```lua
 Q.stack
 ```
-will hold an array of all intermediate also the final result.
+will hold an array of all intermediate also the final result. You have
+to clear the stack memory manually. For this, just call the stack:
+```lua
+Q.stack()
+```
+If you call the stack with a non-nil argument,
+```lua
+Q.stack(true)
+```
+then this call is equivalent to
+```lua
+ipairs(Q.stack)
+```
+and may be used to construct an iterator over the stack elements.
