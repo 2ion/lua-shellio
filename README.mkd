@@ -4,3 +4,25 @@ Using lua-filterpipe, this package provides convenience wrapper
 functions around the classic binutils and/or coreutils like cat, tac,
 head, tail etc so that they can be used with ease as filters from Lua
 programs.
+
+In addition, this package provides a pipe object that makes using Unix
+pipelines in Lua programs extremely easy. It stores the pipeline's
+output and can be referred to or continued at any later point.
+Here's how it works:
+
+```lua
+local sh = require 'shellio'
+
+-- let's get a list of a user's connection endpoints!
+
+local P = sh.Pipe.new()
+  ("lsof", "-i")
+  ("grep", os.getenv("USER"))
+  ("awk", "-F->", "{print $2}")
+  ("cut", "-d:", "-f1")
+
+print(P.data)
+
+-- So easy!
+
+```

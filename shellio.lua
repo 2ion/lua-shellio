@@ -1,7 +1,7 @@
 #!/usr/bin/env lua5.2
 
 local fpipe = require 'filterpipe'
-local P = { h = {} }
+local P = {}
 
 -- coreutils wrappers
 
@@ -111,12 +111,26 @@ function P.sed(i, ...) return fpipe.pipe(i, "sed", ...) end
 -- ellipsis as arguments. Reads all data from the file and uses it as
 -- the input to the shellio wrapper. The ellipsis may specify extra
 -- arguments to the command. See examples.lua for usage examples.
-function P.h.fromFile(filepath, f, ...)
+function P.fromFile(filepath, f, ...)
   local h = io.open(filepath, "r")
   if not h then return nil end
   local d = h:read("*a")
   h:close()
   return f(d, ...)
+end
+
+P.Pipe = {}
+function P.Pipe.new(...)
+  local o = {}
+  setmetatable(o, {
+    __index = P.Pipe,
+    __call = function (o, c, ...)
+      if not c then return o.data end
+      o.data = fpipe.pipe(o.data or "", c, ...)
+      return o
+    end
+  })
+  return o
 end
 
 setmetatable(P, { __call = function (t, ...) return fpipe.pipe(...) end })
