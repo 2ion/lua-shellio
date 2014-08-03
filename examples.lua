@@ -1,3 +1,4 @@
+#!/usr/bin/env lua5.2
 
 local shio = require 'shellio'
 local ts = "-a\n-b\n-c"
