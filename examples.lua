@@ -12,8 +12,13 @@ print(shio.cat(null, "/proc/version", "/proc/misc"))
 print(shio("Calling Figlet", "figlet"))
 print(shio.date(null))
 
-local P = shio.Pipe.new()
+local P = shio.Pipe.new(true)
   ("lsof", "-i")
   ("grep", os.getenv("USER"))
   ("awk", "-F->", "{print $2}")
   ("cut", "-d:", "-f1")
+
+print(P.data)
+for k,v in ipairs(P.stack) do
+  print(v)
+end

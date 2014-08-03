@@ -120,15 +120,14 @@ function P.fromFile(filepath, f, ...)
 end
 
 P.Pipe = {}
-function P.Pipe.new(...)
+function P.Pipe.new(use_stack)
   local o = {}
   setmetatable(o, {
     __index = P.Pipe,
     __call = function (o, c, ...)
       if not c then return o.data end
-      if o.stack and type(o.stack) ~= "table" then
+      if o.use_stack and not o.stack then
         o.stack = {}
-        o.use_stack = true
         setmetatable(o.stack, {
           __call = function (o)
             while #o > 0 do
@@ -145,6 +144,9 @@ function P.Pipe.new(...)
       return o
     end
   })
+  if use_stack then
+    o.use_stack = true
+  end
   return o
 end
 

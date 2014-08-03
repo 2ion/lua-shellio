@@ -21,8 +21,20 @@ local P = sh.Pipe.new()
   ("awk", "-F->", "{print $2}")
   ("cut", "-d:", "-f1")
 
-print(P.data)
+print(P.data) -- the .data member contains the pipe's output
 
--- So easy!
+P("tac") -- continue processing the output
 
+print(P.data) -- print the altered output
 ```
+
+There's also a stack feature which keeps the results of every pipe
+component in memory. Just construct the pipe with a true argument:
+```lua
+local Q = sh.Pipe.new(true)
+```
+and after a pipe invocation,
+```lua
+P.stack
+```
+will hold an array of all intermediate also the final result.
