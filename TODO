@@ -1,0 +1,2 @@
+- Pipe: accept option table instead of vaargs
+- Pipe: allow specifying the first input
